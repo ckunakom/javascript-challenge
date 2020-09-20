@@ -9,12 +9,12 @@ var tbody = d3.select("tbody");
 data.forEach((ufoData) => {
 
     // Use D3 to append a table row (tr) for each UFO data object
-    var row = tbody.append('tr');
+    var row = tbody.append("tr");
 
     // Use `Object.entries` to get the values within each key of JSON
     Object.entries(ufoData).forEach(([key, value]) => {
         // Append a cell to the row for each value in JSON
-        var cell = row.append('td');
+        var cell = row.append("td");
         // Use D3 to update each cell's text with values in UFO data object
         cell.text(value);
     });
@@ -37,10 +37,16 @@ function filterEvent() {
     // Select the input element and get the raw HTML node
     var inputDate = d3.select("#datetime");
     var inputCity = d3.select("#city");
+    var inputState = d3.select("#state");
+    var inputCountry = d3.select("#country");
+    var inputShape = d3.select("#shape");
 
     // Get the value property of the input element
     var inputDateValue = inputDate.property("value");
     var inputCityValue = inputCity.property("value");
+    var inputStateValue = inputState.property("value");
+    var inputCountryValue = inputCountry.property("value");
+    var inputShapeValue = inputShape.property("value");
 
     // FILTERING SPREE //
     // (A FRIEND HELPED OUT WITH THIS IDEA AND SET-UP) 
@@ -48,6 +54,7 @@ function filterEvent() {
     var filterData = tableData;
 
     // Starter length of data
+    console.log('------------------------------------------------------')
     console.log(`There are ${filterData.length} results initially.`);
 
     // Setting date condition: if date exists in the data table
@@ -57,30 +64,40 @@ function filterEvent() {
         // Display # of results after first filter..
         console.log(`${filterData.length} result(s) found after filtered by date.`);
     }
-
-    
-    // Setting city condition: if city exists in the data table after previous filter
+   
+    // Setting city condition: if city exists in the data table
     if (inputCityValue.length != 0) {
         // Filter the data table to be of the city input
         filterData = filterData.filter(item => item.city === inputCityValue);    
         // Display # of results after second filter..
-        console.log(`${filterData.length} result(s) found after filtered by date & city.`);
+        console.log(`${filterData.length} result(s) found after filtered by city.`);
     }
 
+    // Setting state condition: if state exists in the data table
+    if (inputStateValue.length != 0) {
+        // Filter the data table to be of the state input
+        filterData = filterData.filter(item => item.state === inputStateValue);    
+        // Display # of results after second filter..
+        console.log(`${filterData.length} result(s) found after filtered by state.`);
+    }
 
+    // Setting country condition: if country exists in the data table
+    if (inputCountryValue.length != 0) {
+        // Filter the data table to be of the country input
+        filterData = filterData.filter(item => item.country === inputCountryValue);    
+        // Display # of results after second filter..
+        console.log(`${filterData.length} result(s) found after filtered by country.`);
+    }
 
+    // Setting shape condition: if shape exists in the data table
+    if (inputShapeValue.length != 0) {
+        // Filter the data table to be of the shape input
+        filterData = filterData.filter(item => item.shape === inputShapeValue);    
+        // Display # of results after second filter..
+        console.log(`${filterData.length} result(s) found after filtered by shape.`);
+    }
 
-
-
-
-
-
-
-    // IF NO RESULT - at the end - use it with line // Return final filter result
-    // do a IF filterData.length === 0; give the user a statement to select filter again
-
-
-    // Then, select the unordered list element by class name
+    // Then, select the table body
     var tableResult = d3.select("tbody");
 
     // remove any data from the table
@@ -90,12 +107,12 @@ function filterEvent() {
     filterData.forEach((ufoData) => {
 
         // Use D3 to append a table row (tr) for each UFO data object
-        var row = tbody.append('tr');
-    
+        var row = tbody.append("tr");
+
         // Use `Object.entries` to get the values within each key of JSON
         Object.entries(ufoData).forEach(([key, value]) => {
             // Append a cell to the row for each value in JSON
-            var cell = row.append('td');
+            var cell = row.append("td");
             // Use D3 to update each cell's text with values in UFO data object
             cell.text(value);
         });
@@ -122,4 +139,6 @@ function clickReset() {
             cell.text(value);
         });
     });
+    console.log('------------------------------------------------------')
+    console.log(`There are currently ${data.length} results.`);
 };
