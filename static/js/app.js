@@ -103,20 +103,27 @@ function filterEvent() {
     // remove any data from the table
     tbody.html("");
 
-    // Return final filter result
-    filterData.forEach((ufoData) => {
+    // Return final filter result if there's any
+    if (filterData.length !== 0) {
+        filterData.forEach((ufoData) => {
 
-        // Use D3 to append a table row (tr) for each UFO data object
-        var row = tbody.append("tr");
-
-        // Use `Object.entries` to get the values within each key of JSON
-        Object.entries(ufoData).forEach(([key, value]) => {
-            // Append a cell to the row for each value in JSON
-            var cell = row.append("td");
-            // Use D3 to update each cell's text with values in UFO data object
-            cell.text(value);
+            // Use D3 to append a table row (tr) for each UFO data object
+            var row = tbody.append("tr");
+    
+            // Use `Object.entries` to get the values within each key of JSON
+            Object.entries(ufoData).forEach(([key, value]) => {
+                // Append a cell to the row for each value in JSON
+                var cell = row.append("td");
+                // Use D3 to update each cell's text with values in UFO data object
+                cell.text(value);
+            });
         });
-    });
+    }
+    // Otherwise, tell user to redo the search
+    else {
+        // Use D3 to append a table row (tr) for each UFO data object
+        tbody.append("tr").text('No results. Please search again.');
+    }
 };
 
 // RESET TABLE //
@@ -126,6 +133,10 @@ buttonReset.on("click", clickReset);
 
 // Complet resent event handler
 function clickReset() {
+    // remove any data from the table
+    tbody.html("");
+
+    // add data
     data.forEach((ufoData) => {
 
         // Use D3 to append a table row (tr) for each UFO data object
